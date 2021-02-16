@@ -1,0 +1,27 @@
+body {
+  height: 100vh;
+  background-color: #1e1e1e;
+  color: #c3c3c3;
+}
+
+h1 {
+  text-align: center;
+  width: 100%;
+}
+.container {
+  display: flex
+}
+.app-controls {
+  flex: 1;
+  text-align: center
+}
+.app-console {
+  flex: 1.5;
+  height: 100%;
+  max-height: 100vh;
+  overflow-y: scroll
+}
+
+button {
+  border-radius: 10px;
+}
