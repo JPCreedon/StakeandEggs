@@ -26,7 +26,7 @@ function sleep(ms: number): Promise<void> {
 }
 
 export class Chain {
-  INIT_AMOUNT = 999999999
+  INIT_AMOUNT = 1000000000
   CLUSTER_URL = 'http://devnet.solana.com'
   connection: Connection
   programId: PublicKey | null
@@ -69,7 +69,7 @@ export class Chain {
   createPayerAccount = async () => {
     console.log('Creating new account')
     const account = new Account()
-    console.log('Requesting airdrop with 999,999,999 SOL')
+    console.log('Requesting airdrop with 1,000,000,000 SOL')
     await this.connection.requestAirdrop(account.publicKey, this.INIT_AMOUNT)
 
     let balance = 0
