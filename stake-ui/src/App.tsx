@@ -20,7 +20,9 @@ const chain = new Chain()
 const theme = createMuiTheme({ palette: { 
   type: 'dark', 
   text: {
-    secondary: 'rgb(0, 255, 163)'
+    secondary: 'rgb(0, 255, 163) !important'  // green
+    // secondary: 'rgb(3, 255, 255) !important'   // blue
+    // secondary: 'rgb(194, 63, 218) !important' // purple
   }
 } })
 console.warn("THEME", theme)

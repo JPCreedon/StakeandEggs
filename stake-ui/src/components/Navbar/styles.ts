@@ -13,6 +13,12 @@ createStyles({
   },
   title: {
     flexGrow: 1,
+    paddingLeft: 70
+
   },
+  logo: {
+    height: '100%',
+    transform: 'translate(-20px, 0)'
+  }
 }),
 );
