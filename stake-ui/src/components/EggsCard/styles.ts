@@ -16,6 +16,9 @@ export const useStyles = makeStyles((theme: Theme) => createStyles({
       strokeWidth: 1,
       stroke: '#fff'
     },
+    '& line': {
+      stroke: '#FFF'
+    },
     '& .tick, & text': {
       fill: '#fff',
       strokeWidth: 1
@@ -31,10 +34,20 @@ export const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   redeemButton: {
     color: '#303030',
-    backgroundColor: 'rgb(0, 255, 163)'
+    backgroundColor: 'rgb(0, 255, 163)',
+    '&:hover': {
+      backgroundColor: 'rgba(0, 255, 163,0.6)',
+      color: '#303030',
+      borderColor: 'rgb(0, 255, 163)'
+    }
   },
   listButton: {
     color: 'rgb(0, 255, 163)',
-    borderColor: 'rgb(0, 255, 163)'
+    borderColor: 'rgb(0, 255, 163)',
+    '&:hover': {
+      backgroundColor: 'rgba(0, 255, 163,0.1)',
+      color: 'rgb(0, 255, 163)',
+      borderColor: 'rgb(0, 255, 163)'
+    }
   }
 }))
