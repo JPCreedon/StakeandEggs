@@ -151,7 +151,7 @@ export class Chain {
     const [mintAuthority, _] = await PublicKey.findProgramAddress([Buffer.from(this.encoder.encode(MINT_AUTHORITY_SEED))], new PublicKey(PROGRAM_ID))
     const mintAuthorityAccount = await this.connection.getAccountInfo(mintAuthority)
     
-    const { epoch } = await this.connection.getEpochInfo('finalized')
+    const { epoch } = await this.connection.getEpochInfo('single')
     const seed = `${TOKEN_ACCOUNT_SEED}-${epoch}`;
     // const [egg_account, _] = await PublicKey.findProgramAddress([Buffer.from(this.encoder.encode(seed))], this.programPublicKey)
     const mintTokenAccount = new Account()
