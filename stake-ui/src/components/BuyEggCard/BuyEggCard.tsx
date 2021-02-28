@@ -4,19 +4,24 @@ import Typography from '@material-ui/core/Typography'
 import { Egg } from '../Egg'
 import { useStyles } from './styles'
 
-const BuyEggCard: React.FC = () => {
+interface Props {
+  discount: number
+  epoch: number
+}
+
+const BuyEggCard: React.FC<Props> = ({ discount, epoch }) => {
   const classes = useStyles()
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <div style={{ flex: 1 }}>
-        <Egg withPrice={false} />
+        <Egg withPrice={false} showYolkOnHover={false} />
       </div>
       <div style={{ flex: 1 }}>
         <Typography variant="body2" color="textPrimary">
-          Epoch: 30
+          Epoch: {epoch}
         </Typography>
         <Typography variant="body2" color="textPrimary">
-          Discount: 3%
+          {discount > 0 ? `Premium: ${discount}%` : `Discount: ${discount}%`}
         </Typography>
       </div>
       <div style={{ flex: 1 }}>

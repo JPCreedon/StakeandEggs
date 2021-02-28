@@ -5,13 +5,16 @@ import Button from '@material-ui/core/Button'
 import { Egg } from '../Egg'
 import { useStore, State } from '../../store/app'
 import { useStyles } from './styles'
+import { CreateEggDialog } from '../CreateEggDialog'
 
 const clientSelector = (state: State) => state.client
+const setDialogVisibleSelector = (state:State) => state.setDialogVisible
 
 const CreateEggCard: React.FC = () => {
   const classes = useStyles()
   const [currentEpoch, setCurrentEpoch] = useState({epoch: 0, slotIndex: 0, slotsInEpoch: 0})
   const client = useStore(clientSelector)
+  const setDialogVisible = useStore(setDialogVisibleSelector)
 
   useEffect(() => {
       const interval = setInterval(async ()=>{
@@ -32,15 +35,20 @@ const CreateEggCard: React.FC = () => {
     return Math.ceil((currentEpoch.slotIndex/currentEpoch.slotsInEpoch) * 100000)/1000
   }
 
+  const handleClick = () => {
+    setDialogVisible('createEgg', true)
+  }
+
   return (
     <Paper className={classes.paper} elevation={24}>
+      <CreateEggDialog />
       <Typography className={classes.text} variant="h5">
         Create an Egg
       </Typography>
 
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <div style={{ flex: 1 }}>
-          <Egg withPrice={false} />
+          <Egg withPrice={false} showYolkOnHover={false} />
         </div>
         <div style={{ flex: 1 }}>
           <Typography className={classes.text} variant="h6">
@@ -56,7 +64,7 @@ const CreateEggCard: React.FC = () => {
         <div style={{ flex: 1, textAlign: 'center' }}>
           <Button
             className={classes.button}
-            onClick={() => {}}
+            onClick={handleClick}
             variant="contained"
           >
             Create

@@ -34,12 +34,23 @@ const Navbar: React.FC = () => {
           <div style={{ position: 'absolute', height: '100%' }}>
             <img alt="logo" src={logo} className={classes.logo} />
           </div>
-          <Typography variant="h6" className={classes.title}>
-            Stake &amp; Eggs
-          </Typography>
+          <div className={classes.title}>
+            <div style={{flex: 1}}>
+              <Typography variant="h6">Stake &amp; Eggs</Typography>
+            </div>
+            <div style={{flex: 1}}>
+              <Button  onClick={() => {}} color="inherit">
+                Stake
+              </Button>
+              <Button onClick={() => {}} color="inherit">
+                Eggs
+              </Button>
+            </div>
+          </div>
           <Button onClick={handelConnect} color="inherit">
             {/* {connected ? wallet.publicKey.toBase58() : 'Connect Wallet'} */}
-            {connected ? 'CHANGE BACK TO WALLET' : 'Connect Wallet'} {/* TODO: REMOVE */}
+            {connected ? 'CHANGE BACK TO WALLET' : 'Connect Wallet'}{' '}
+            {/* TODO: REMOVE */}
           </Button>
         </Toolbar>
       </AppBar>

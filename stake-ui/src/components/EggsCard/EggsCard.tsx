@@ -6,14 +6,19 @@ import Button from '@material-ui/core/Button'
 // @ts-ignore
 import C3Chart from 'react-c3js'
 import { Egg } from '../Egg'
+import { RedeemEggDialog } from '../RedeemEggDialog'
 import { useStore, State, Account } from '../../store/app'
 import { useStyles } from './styles'
 import 'c3/c3.css'
 
 const accountsSelector = (state: State) => state.accounts
+const selectedEggSelector = (state: State) => state.selectedEggPublicKey
+const setDialogVisibleSelector = (state: State) => state.setDialogVisible
 
 const EggsCard: React.FC = () => {
   const accounts = useStore(accountsSelector)
+  const selectedEgg = useStore(selectedEggSelector)
+  const setDialogVisible = useStore(setDialogVisibleSelector)
 
   const cumsum = (): { x: number[]; y: number[] } => {
     /**
@@ -68,6 +73,10 @@ const EggsCard: React.FC = () => {
   const bar = { width: { ratio: 0.5 } }
   const interaction = { enabled: false }
 
+  const handleRedeemClick = () => {
+    setDialogVisible('redeemEgg', true)
+  }
+
   return (
     <Paper elevation={24} className={classes.paper}>
       <Typography color="textSecondary" variant="h5">
@@ -75,16 +84,17 @@ const EggsCard: React.FC = () => {
       </Typography>
 
       <div style={{ display: 'flex' }}>
-        <div style={{ flex: 0.5, maxHeight: '30vh', overflowX: 'scroll' }}>
+        <div style={{ flex: 0.5, maxHeight: '30vh'  , overflowX: 'scroll' }}>
           {accounts.map((d: any) => (
-            <Egg key={`egg-${d.pubkey}`} epoch={d.account.rentEpoch} />
+            <Egg key={`egg-${d.pubkey}`} epoch={d.account.rentEpoch} publicKey={d.pubkey} />
           ))}
         </div>
         <div className={classes.buttonsPanel}>
           <Button
             className={classes.redeemButton}
             fullWidth
-            onClick={() => {}}
+            disabled={!selectedEgg}
+            onClick={handleRedeemClick}
             variant="contained"
             color="primary"
           >
@@ -110,6 +120,7 @@ const EggsCard: React.FC = () => {
           />
         </div>
       </div>
+      <RedeemEggDialog />
     </Paper>
   )
 }

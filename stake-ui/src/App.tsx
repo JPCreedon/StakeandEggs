@@ -10,13 +10,12 @@ import { EggsCard } from './components/EggsCard'
 import { CreateEggCard } from './components/CreateEggCard'
 import { DailyRewardsCard } from './components/DailyRewardsCard'
 import { MarketCard } from './components/MarketCard'
-import { Chain } from './utils'
 import { useStore, State, Account } from './store/app'
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token'
 
 // const provider = 'https://www.sollet.io'
 // const wallet = new Wallet(provider)
-const chain = new Chain()
+// const chain = new Chain()
 
 const theme = createMuiTheme({
   palette: {
@@ -28,6 +27,7 @@ const theme = createMuiTheme({
   }
 })
 
+const chainSelector = (state: State) => state.chain
 const setAccountsSelector = (state: State) => state.setAccounts
 const walletSelector = (state: State) => state.wallet
 const setConnectedSelector = (state: State) => state.setConnected
@@ -44,6 +44,7 @@ function App() {
   const setConnected = useStore(setConnectedSelector)
   const wallet = useStore(walletSelector)
   const client = useStore(clientSelector)
+  const chain = useStore(chainSelector)
 
   const setDataForWallet = useCallback(async () => {
     const params = {
@@ -110,7 +111,7 @@ function App() {
           <DailyRewardsCard />
         </div>
       </div>
-      {/* <button onClick={testTransfer}>Transfer</button> */}
+      <button onClick={testTransfer}>Transfer</button>
     </ThemeProvider>
   )
 }

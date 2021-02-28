@@ -12,6 +12,7 @@ createStyles({
     marginRight: theme.spacing(2),
   },
   title: {
+    display: 'flex',
     flexGrow: 1,
     paddingLeft: 70
 

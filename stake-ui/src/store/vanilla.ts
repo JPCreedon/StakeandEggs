@@ -5,7 +5,7 @@ import pipe from 'ramda/src/pipe'
 import { RequestManager, HTTPTransport, Client } from '@open-rpc/client-js'
 // @ts-ignore
 import Wallet from '@project-serum/sol-wallet-adapter'
-
+import { Chain } from '../utils'
 const transport = new HTTPTransport('http://0.0.0.0:8899')
 const client = new Client(new RequestManager([transport]))
 
@@ -20,14 +20,24 @@ export interface Account {
   }
 }
 
+type DialogName = "createEgg" | "redeemEgg"
+
 export type State = {
+  chain: Chain
   accounts: Account[]
   setAccounts: (accounts: Account[]) => void
   wallet?: any
   setWallet: (wallet: any) => void
   connected: boolean
   setConnected: (connected: boolean) => void
-  client: Client
+  client: Client,
+  setDialogVisible: (name:DialogName, visible: boolean) => void
+  dialogs: {
+    createEgg: boolean
+    redeemEgg: boolean
+  },
+  selectedEggPublicKey?: string
+  setSelectedEggPublicKey: (selectedEggPublicKey: string|undefined) => void
 }
 
 let createFunc
@@ -38,6 +48,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export const store = createFunc<State>((set) => ({
+  chain: new Chain(),
   accounts: [],
   setAccounts: (accounts: Account[]) =>
     set((state) => ({ ...state, accounts })),
@@ -46,5 +57,16 @@ export const store = createFunc<State>((set) => ({
   connected: true, //false,
   setConnected: (connected: boolean) =>
     set((state) => ({ ...state, connected })),
-  client: client
+  client: client,
+  setDialogVisible: (name: DialogName, visible: boolean) => set((state) => {
+    const dialogs = {...state.dialogs}
+    dialogs[name] = visible
+    return {...state, dialogs}
+  }),
+  dialogs: {
+    createEgg: false,
+    redeemEgg: false
+  },
+  selectedEggPublicKey: undefined,
+  setSelectedEggPublicKey: (selectedEggPublicKey: string|undefined) => set((state) => ({...state, selectedEggPublicKey}))
 }))

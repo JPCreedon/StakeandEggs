@@ -1,0 +1,7 @@
+export const LIGHT_BLUE = 'rgba(3, 225, 255, 0.6)'
+export const BLUE = 'rgba(3, 225, 255, 1)'
+export const LIGHT_PURPLE = 'rgba(194, 63, 218, 0.6)'
+export const PURPLE = 'rgba(194, 63, 218, 1)'
+export const WHITE = '#FFF'
+export const GREEN = 'rgb(0, 255, 163)'
+export const LIGHT_GREEN = 'rgba(0, 255, 163, 0.2)'
