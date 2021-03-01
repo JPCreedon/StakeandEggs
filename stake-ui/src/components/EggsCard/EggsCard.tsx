@@ -71,7 +71,14 @@ const EggsCard: React.FC = () => {
     y: { label: 'SOL' }
   }
   const bar = { width: { ratio: 0.5 } }
-  const interaction = { enabled: false }
+  const interaction = { enabled: true }
+
+  const tooltip = {
+    format: {
+      title: (x: any) => `Epoch ${x}`,
+      value: (val: any) => parseFloat(val).toFixed(3)
+    }
+  }
 
   const handleRedeemClick = () => {
     setDialogVisible('redeemEgg', true)
@@ -84,9 +91,15 @@ const EggsCard: React.FC = () => {
       </Typography>
 
       <div style={{ display: 'flex' }}>
-        <div style={{ flex: 0.5, maxHeight: '30vh'  , overflowX: 'scroll' }}>
-          {accounts.map((d: any) => (
-            <Egg key={`egg-${d.pubkey}`} epoch={d.account.rentEpoch} publicKey={d.pubkey} />
+        <div style={{ flex: 0.5, maxHeight: '30vh', overflowX: 'scroll' }}>
+          {accounts.map((d: Account) => (
+            <Egg
+              key={`egg-${d.pubkey}`}
+              epoch={d.account.rentEpoch}
+              publicKey={d.pubkey}
+              grail={d.account.data.grail}
+              yolk={d.account.data.yolk}
+            />
           ))}
         </div>
         <div className={classes.buttonsPanel}>
@@ -117,6 +130,7 @@ const EggsCard: React.FC = () => {
             axis={axis}
             interaction={interaction}
             bar={bar}
+            tooltip={tooltip}
           />
         </div>
       </div>

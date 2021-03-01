@@ -3,8 +3,6 @@ import React, { useEffect, useCallback } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 // @ts-ignore
-// import Wallet from '@project-serum/sol-wallet-adapter'
-// import { RequestManager, HTTPTransport, Client } from '@open-rpc/client-js'
 import { Navbar } from './components/Navbar'
 import { EggsCard } from './components/EggsCard'
 import { CreateEggCard } from './components/CreateEggCard'
@@ -12,10 +10,7 @@ import { DailyRewardsCard } from './components/DailyRewardsCard'
 import { MarketCard } from './components/MarketCard'
 import { useStore, State, Account } from './store/app'
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token'
-
-// const provider = 'https://www.sollet.io'
-// const wallet = new Wallet(provider)
-// const chain = new Chain()
+import Grid from '@material-ui/core/Grid'
 
 const theme = createMuiTheme({
   palette: {
@@ -32,8 +27,6 @@ const setAccountsSelector = (state: State) => state.setAccounts
 const walletSelector = (state: State) => state.wallet
 const setConnectedSelector = (state: State) => state.setConnected
 const clientSelector = (state: State) => state.client
-// const transport = new HTTPTransport('http://0.0.0.0:8899')
-// const client = new Client(new RequestManager([transport]))
 
 const getRandom = (): number => {
   return Math.ceil(Math.random() * 1000) / 100
@@ -61,15 +54,22 @@ function App() {
     }
 
     const result = await client.request(params)
-    const accounts = result.value
-      .map((acct: Account) => {
-        acct.account.data.grail = getRandom()
-        acct.account.data.yolk = 10
-        return acct
-      })
-      .sort(
-        (a: Account, b: Account) => a.account.rentEpoch - b.account.rentEpoch
-      )
+    const accounts: Account[] = result.value.sort(
+      (a: Account, b: Account) => a.account.rentEpoch - b.account.rentEpoch
+    )
+    const randoms: { [key: string]: number } = {}
+    let sum = 0
+    for (let i = accounts.length - 1; i >= 0; i--) {
+      const key = accounts[i].account.rentEpoch.toString()
+      if (!Object.keys(randoms).includes(key)) {
+        const val = getRandom()
+        sum += val
+        sum = parseFloat(sum.toFixed(2))
+        randoms[key] = sum
+      }
+      accounts[i].account.data.grail = randoms[key]
+      accounts[i].account.data.yolk = 10
+    }
     setAccounts(accounts)
   }, [setAccounts, client])
 
@@ -90,10 +90,6 @@ function App() {
     return () => wallet.disconnect()
   }, [setConnected, wallet, setDataForWallet])
 
-  const testTransfer = async (_e: any) => {
-    await chain.transferToStakeAccount(wallet)
-  }
-
   const initApp = async () => {
     await chain.initApp(wallet)
   }
@@ -103,15 +99,15 @@ function App() {
       <Navbar />
       <EggsCard />
       <CreateEggCard />
-      <div style={{ display: 'flex', maxWidth: '94%', marginLeft: '3%' }}>
-        <div style={{ flex: 1, marginRight: "0.5%" }}>
+      <Grid container spacing={2} style={{ width: '95%', marginLeft: '2.5%' }}>
+        <Grid item xs={12} md={6}>
           <MarketCard />
-        </div>
-        <div style={{ flex: 1, marginRight: "0.5%" }}>
+        </Grid>
+        <Grid item xs={12} md={6}>
           <DailyRewardsCard />
-        </div>
-      </div>
-      <button onClick={testTransfer}>Transfer</button>
+        </Grid>
+      </Grid>
+      {/* <button onClick={initApp}>Transfer</button> */}
     </ThemeProvider>
   )
 }

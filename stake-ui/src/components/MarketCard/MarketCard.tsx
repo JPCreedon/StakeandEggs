@@ -28,7 +28,7 @@ const MarketCard: React.FC = () => {
       const premium = Math.random() > 0.5 ? 1 : -1
       _data.push({
         epoch: getRandomBetween(1, maxEpoch),
-        discount: getRandomBetween(1 * premium, 5)
+        discount: getRandomBetween(1 * premium, premium * 5)
       })
     }
     setData(_data)

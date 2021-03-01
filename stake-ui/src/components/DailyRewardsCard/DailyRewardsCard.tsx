@@ -9,9 +9,10 @@ import C3Chart from 'react-c3js'
 import 'c3/c3.css'
 
 const bar = { width: { ratio: 0.5 } }
-const interaction = { enabled: false }
+const interaction = { enabled: true }
 
 const accountsSelector = (state: State) => state.accounts
+
 const DailyRewardsCard: React.FC = () => {
   const accounts = useStore(accountsSelector)
   const classes = useStyles()
@@ -59,15 +60,18 @@ const DailyRewardsCard: React.FC = () => {
 
   const axis = {
     x: {
-      label: 'x',
+      label: 'Epoch',
       values: _data.x,
       localTime: false
-      // type: 'timeseries',
-      // tick: {
-      //   format: '%Y-%m-%d'
-      // }
     },
     y: { label: 'SOL' }
+  }
+
+  const tooltip = {
+    format: {
+      title: (x: any) => `Epoch ${x}`,
+      value: (val: any) => parseFloat(val).toFixed(3)
+    }
   }
 
   return (
@@ -81,6 +85,7 @@ const DailyRewardsCard: React.FC = () => {
         axis={axis}
         interaction={interaction}
         bar={bar}
+        tooltip={tooltip}
       />
     </Paper>
   )

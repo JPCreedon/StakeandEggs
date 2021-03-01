@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button'
 import { useStyles } from './styles'
 import { useStore, State } from '../../store/app'
 import logo from './logo.png'
+import basket from './basket.png'
+import steak from './steak.png'
 
 const walletSelector = (state: State) => state.wallet
 const connectedSelector = (state: State) => state.connected
@@ -35,15 +37,17 @@ const Navbar: React.FC = () => {
             <img alt="logo" src={logo} className={classes.logo} />
           </div>
           <div className={classes.title}>
-            <div style={{flex: 1}}>
+            <div style={{ flex: 1 }}>
               <Typography variant="h6">Stake &amp; Eggs</Typography>
             </div>
-            <div style={{flex: 1}}>
-              <Button  onClick={() => {}} color="inherit">
-                Stake
+            <div style={{ flex: 1 }}>
+              <Button style={{marginRight: 48}} onClick={() => {}} color="inherit">
+                <img src={basket} alt="eggs" style={{ maxHeight: 50 }} />
+                Eggs
               </Button>
               <Button onClick={() => {}} color="inherit">
-                Eggs
+                <img src={steak} alt="stake" style={{ maxHeight: 50 }} />
+                Stake
               </Button>
             </div>
           </div>

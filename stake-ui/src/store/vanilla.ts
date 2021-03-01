@@ -6,7 +6,9 @@ import { RequestManager, HTTPTransport, Client } from '@open-rpc/client-js'
 // @ts-ignore
 import Wallet from '@project-serum/sol-wallet-adapter'
 import { Chain } from '../utils'
-const transport = new HTTPTransport('http://0.0.0.0:8899')
+const transport = new HTTPTransport('http://devnet.solana.com')
+// const transport = new HTTPTransport('http://0.0.0.0:8899')
+// const transport = new HTTPTransport('/chain')
 const client = new Client(new RequestManager([transport]))
 
 export interface Account {
@@ -20,7 +22,7 @@ export interface Account {
   }
 }
 
-type DialogName = "createEgg" | "redeemEgg"
+type DialogName = 'createEgg' | 'redeemEgg'
 
 export type State = {
   chain: Chain
@@ -30,14 +32,16 @@ export type State = {
   setWallet: (wallet: any) => void
   connected: boolean
   setConnected: (connected: boolean) => void
-  client: Client,
-  setDialogVisible: (name:DialogName, visible: boolean) => void
+  client: Client
+  setDialogVisible: (name: DialogName, visible: boolean) => void
   dialogs: {
     createEgg: boolean
     redeemEgg: boolean
-  },
+  }
   selectedEggPublicKey?: string
-  setSelectedEggPublicKey: (selectedEggPublicKey: string|undefined) => void
+  setSelectedEggPublicKey: (selectedEggPublicKey: string | undefined) => void
+  initialized: boolean
+  setInitialized: () => void
 }
 
 let createFunc
@@ -58,15 +62,19 @@ export const store = createFunc<State>((set) => ({
   setConnected: (connected: boolean) =>
     set((state) => ({ ...state, connected })),
   client: client,
-  setDialogVisible: (name: DialogName, visible: boolean) => set((state) => {
-    const dialogs = {...state.dialogs}
-    dialogs[name] = visible
-    return {...state, dialogs}
-  }),
+  setDialogVisible: (name: DialogName, visible: boolean) =>
+    set((state) => {
+      const dialogs = { ...state.dialogs }
+      dialogs[name] = visible
+      return { ...state, dialogs }
+    }),
   dialogs: {
     createEgg: false,
     redeemEgg: false
   },
   selectedEggPublicKey: undefined,
-  setSelectedEggPublicKey: (selectedEggPublicKey: string|undefined) => set((state) => ({...state, selectedEggPublicKey}))
+  setSelectedEggPublicKey: (selectedEggPublicKey: string | undefined) =>
+    set((state) => ({ ...state, selectedEggPublicKey })),
+  initialized: false,
+  setInitialized: () => set((state) => ({ ...state, initialized: true }))
 }))

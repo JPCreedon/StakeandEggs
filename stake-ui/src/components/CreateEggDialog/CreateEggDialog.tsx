@@ -70,7 +70,7 @@ const CreateEggDialog: React.FC = () => {
         <DialogContent>
           <div style={{ display: 'flex' }}>
             <div style={{ flex: 1 }}>
-              <Egg withPrice={false} />
+              <Egg />
             </div>
             <div style={{ flex: 1 }}>
               <Typography variant="h6">You will receive</Typography>

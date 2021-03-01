@@ -6,24 +6,23 @@ import clsx from 'clsx'
 
 interface Props {
   epoch?: number
-  withPrice?: boolean
   showYolkOnHover?: boolean
   publicKey?: string
   large?: boolean
+  yolk?: number
+  grail?: number
 }
 
 const setSelectedEggSelector = (state: State) => state.setSelectedEggPublicKey
 const selectedEggSelector = (state: State) => state.selectedEggPublicKey
 
-const getRandom = (): number => {
-  return Math.ceil(Math.random() * 1000) / 100
-}
 const Egg: React.FC<Props> = ({
   epoch,
-  withPrice,
   showYolkOnHover,
   publicKey,
-  large
+  large,
+  yolk,
+  grail
 }) => {
   const classes = useStyles()
   const selectedEgg = useStore(selectedEggSelector)
@@ -50,17 +49,14 @@ const Egg: React.FC<Props> = ({
     >
       <div className={classes.eggDetails}>
         {epoch && <Typography variant="body2">Epoch #{epoch}</Typography>}
-        {withPrice && <Typography variant="body2">Yolk: 10.00 </Typography>}
-        {withPrice && (
-          <Typography variant="body2">Grail: {getRandom()} </Typography>
-        )}
+        {!!yolk && <Typography variant="body2">Yolk: {yolk} </Typography>}
+        {!!grail && <Typography variant="body2">Grail: {grail} </Typography>}
       </div>
     </div>
   )
 }
 
 Egg.defaultProps = {
-  withPrice: true,
   showYolkOnHover: true,
   large: false
 }

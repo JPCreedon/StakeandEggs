@@ -27,6 +27,7 @@ export const useStyles = makeStyles((theme: Theme) => createStyles({
     position: 'relative',
     '&:hover': {
       backgroundImage: "url('/yolk.png')",
+      cursor: 'pointer'
     }
   },
   eggDetails: {

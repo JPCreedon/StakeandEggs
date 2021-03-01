@@ -14,14 +14,18 @@ const BuyEggCard: React.FC<Props> = ({ discount, epoch }) => {
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <div style={{ flex: 1 }}>
-        <Egg withPrice={false} showYolkOnHover={false} />
+        <Egg showYolkOnHover={false} />
       </div>
       <div style={{ flex: 1 }}>
         <Typography variant="body2" color="textPrimary">
           Epoch: {epoch}
         </Typography>
         <Typography variant="body2" color="textPrimary">
-          {discount > 0 ? `Premium: ${discount}%` : `Discount: ${discount}%`}
+          {discount === 0
+            ? 'Market Price'
+            : discount > 0
+            ? `Premium: ${Math.abs(discount)}%`
+            : `Discount: ${Math.abs(discount)}%`}
         </Typography>
       </div>
       <div style={{ flex: 1 }}>

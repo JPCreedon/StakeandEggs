@@ -8,6 +8,7 @@ import { useStyles } from './styles'
 import { CreateEggDialog } from '../CreateEggDialog'
 
 const clientSelector = (state: State) => state.client
+const connectedSelector = (state: State) => state.connected
 const setDialogVisibleSelector = (state:State) => state.setDialogVisible
 
 const CreateEggCard: React.FC = () => {
@@ -15,6 +16,7 @@ const CreateEggCard: React.FC = () => {
   const [currentEpoch, setCurrentEpoch] = useState({epoch: 0, slotIndex: 0, slotsInEpoch: 0})
   const client = useStore(clientSelector)
   const setDialogVisible = useStore(setDialogVisibleSelector)
+  const connected = useStore(connectedSelector)
 
   useEffect(() => {
       const interval = setInterval(async ()=>{
@@ -24,7 +26,7 @@ const CreateEggCard: React.FC = () => {
         }
         const res = await client.request(params)
         setCurrentEpoch(res)
-      }, 1000)
+      }, 5000)
       return () => clearInterval(interval)
   }, [client])
 
@@ -48,7 +50,7 @@ const CreateEggCard: React.FC = () => {
 
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <div style={{ flex: 1 }}>
-          <Egg withPrice={false} showYolkOnHover={false} />
+          <Egg showYolkOnHover={false} />
         </div>
         <div style={{ flex: 1 }}>
           <Typography className={classes.text} variant="h6">
@@ -66,6 +68,7 @@ const CreateEggCard: React.FC = () => {
             className={classes.button}
             onClick={handleClick}
             variant="contained"
+            disabled={!connected}
           >
             Create
           </Button>

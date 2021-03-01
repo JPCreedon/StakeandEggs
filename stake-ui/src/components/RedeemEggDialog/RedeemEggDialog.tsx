@@ -57,7 +57,7 @@ const RedeemEggDialog: React.FC = () => {
       })
     }
     f()
-  })
+  }, [])
 
   const handleClose = () => {
     setDialogVisible('redeemEgg', false)
@@ -75,16 +75,18 @@ const RedeemEggDialog: React.FC = () => {
         <DialogContent>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div style={{ flex: 1, textAlign: 'center' }}>
-              <Egg withPrice={false} showYolkOnHover={false} large />
+              <Egg showYolkOnHover={false} large />
             </div>
             <div style={{ flex: 1 }}>
               <Typography variant="h6">You will receive</Typography>
-              <Typography variant="h3">{eggData.grail + eggData.yolk} SOL</Typography>
-              <Typography variant="body1" style={{marginTop: 8}}>
+              <Typography variant="h3">
+                {eggData.grail + eggData.yolk} SOL
+              </Typography>
+              <Typography variant="body1" style={{ marginTop: 8 }}>
                 At epoch {eggData.epoch}. We will then transfer your yolk (
                 {eggData.yolk}) and grail ({eggData.grail}) rewards
               </Typography>
-              <Typography variant="body2" style={{marginTop: 8}}>
+              <Typography variant="body2" style={{ marginTop: 8 }}>
                 Your egg will be made into omelettes (burnt) once the
                 transaction is confirmed. <br />
                 Your rent of {eggData.rent} lamports will be released

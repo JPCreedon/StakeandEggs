@@ -20,20 +20,24 @@ const SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID: PublicKey = new PublicKey(
 'ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL',
 )
 
+// LOCAL CLUSTER
 const PROGRAM_ID = "8X2jRAZD25tSrGeEDaAmQXYY8Ki3uJBMBVgK4Dr2prcJ"
-// const PROGRAM_ID = "8X2jRAZD25tSrGeEDaAmQXYY8Ki3uJBMBVgK4Dr2prcJ"
 const STAKE_ACCOUNT = new PublicKey('F6gy4BtV5hRJJnHwr6ww2wMgyanGux8hhwBJugHPp9B3')
+const CLUSTER_URL = 'http://0.0.0.0:8899'
 
+// DEVNET
+// const CLUSTER_URL = 'http://devnet.solana.com'
+// const PROGRAM_ID = "8X2jRAZD25tSrGeEDaAmQXYY8Ki3uJBMBVgK4Dr2prcJ"
+
+const EGG_PRICE = 1 // TODO: change to 10
+const OUR_PUBLIC_KEY = "4yvBtnpRJJGhspF3jj9bNtTo6tciJwoNjy1d7czVfguf" // TODO: remove
 // Our stake PK and EGG_PRICE are here only for UI purposes. Additional check is performed on the chain
 // in case a malicious user modifies that value
-const OUR_PUBLIC_KEY = "4yvBtnpRJJGhspF3jj9bNtTo6tciJwoNjy1d7czVfguf"
 // const OUR_PUBLIC_KEY = "FY56myChjwgbxVrpJy3G73wK1kqeZFo3MTQP2aRv8eNf"
-const EGG_PRICE = 1 // TODO: change to 10
 // const EGG_TOKEN = 'RzuWv9Dz9LwhTbkYrDM2uuZXEkb9KzFUw5iaWvmvPnH'
 // const EGG_TOKEN = '8aR6gYQ9CM1ZFD6WhKeHCsje7kBnkwdpBu5Xj2NS711C'
-const EGG_TOKEN = 'EBGbpNBfD2TSZi98VEMRhp9HAmFzhsPGUtN8dyHfZqdn'
-// const CLUSTER_URL = 'http://devnet.solana.com'
-const CLUSTER_URL = 'http://0.0.0.0:8899'
+// const EGG_TOKEN = 'EBGbpNBfD2TSZi98VEMRhp9HAmFzhsPGUtN8dyHfZqdn'
+
 const STATE_ACCOUNT_SEED = 'egg-app-state-2'
 const TOKEN_ACCOUNT_SEED = 'egg-app-token-account'
 const MINT_AUTHORITY_SEED = "egg-app-mint-auth"
@@ -47,7 +51,7 @@ function sleep(ms: number): Promise<void> {
 export class Chain {
   connection: Connection
   programPublicKey: PublicKey
-  ourPublicKey: PublicKey
+  ourPublicKey: PublicKey // TODO: remove
   statePublicKey?: PublicKey
   encoder: TextEncoder
   
@@ -180,13 +184,13 @@ export class Chain {
     }
 
     let transaction = new Transaction().add(
-    //   SystemProgram.transfer({
-    //      fromPubkey: wallet.publicKey,
-    //      toPubkey: STAKE_ACCOUNT,
-    //      lamports: EGG_PRICE * LAMPORTS_PER_SOL,
-    //    })
-    //  )
-    //  .add(
+      SystemProgram.transfer({
+         fromPubkey: wallet.publicKey,
+         toPubkey: STAKE_ACCOUNT,
+         lamports: EGG_PRICE * LAMPORTS_PER_SOL,
+       })
+     )
+     .add(
        new TransactionInstruction({
          keys,
          programId: this.programPublicKey,
