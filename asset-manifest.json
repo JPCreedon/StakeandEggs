@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/StakeandEggs/static/css/main.505d6a14.chunk.css",
-    "main.js": "/StakeandEggs/static/js/main.e6ae0393.chunk.js",
-    "main.js.map": "/StakeandEggs/static/js/main.e6ae0393.chunk.js.map",
+    "main.js": "/StakeandEggs/static/js/main.d8774750.chunk.js",
+    "main.js.map": "/StakeandEggs/static/js/main.d8774750.chunk.js.map",
     "runtime-main.js": "/StakeandEggs/static/js/runtime-main.5341ed20.js",
     "runtime-main.js.map": "/StakeandEggs/static/js/runtime-main.5341ed20.js.map",
     "static/css/2.7fc884d7.chunk.css": "/StakeandEggs/static/css/2.7fc884d7.chunk.css",
@@ -23,6 +23,6 @@
     "static/css/2.7fc884d7.chunk.css",
     "static/js/2.af020cbf.chunk.js",
     "static/css/main.505d6a14.chunk.css",
-    "static/js/main.e6ae0393.chunk.js"
+    "static/js/main.d8774750.chunk.js"
   ]
 }
