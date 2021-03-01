@@ -57,7 +57,7 @@ const RedeemEggDialog: React.FC = () => {
       })
     }
     f()
-  }, [])
+  }, [accounts, client, selectedEgg])
 
   const handleClose = () => {
     setDialogVisible('redeemEgg', false)
@@ -80,7 +80,7 @@ const RedeemEggDialog: React.FC = () => {
             <div style={{ flex: 1 }}>
               <Typography variant="h6">You will receive</Typography>
               <Typography variant="h3">
-                {eggData.grail + eggData.yolk} SOL
+                {(eggData.grail + eggData.yolk).toFixed(2)} SOL
               </Typography>
               <Typography variant="body1" style={{ marginTop: 8 }}>
                 At epoch {eggData.epoch}. We will then transfer your yolk (

@@ -34,11 +34,11 @@ const DailyRewardsCard: React.FC = () => {
   }
 
   const getChartData = (): { x: number[]; y: number[] } => {
-    /**
-     * @returns the cumulative sum of the eggs
-     */
     const res = accounts.reduce((acc: any, account: Account) => {
       const k = account.account.rentEpoch.toString()
+      if(!acc[k]) {
+        acc[k] = 0
+      }
       acc[k] += account.account.data.grail
       return acc
     }, getXLabels())
@@ -73,7 +73,7 @@ const DailyRewardsCard: React.FC = () => {
       value: (val: any) => parseFloat(val).toFixed(3)
     }
   }
-
+  console.log(data)
   return (
     <Paper elevation={24} className={classes.paper}>
       <Typography className={classes.text} variant="h5">

@@ -14,11 +14,13 @@ import 'c3/c3.css'
 const accountsSelector = (state: State) => state.accounts
 const selectedEggSelector = (state: State) => state.selectedEggPublicKey
 const setDialogVisibleSelector = (state: State) => state.setDialogVisible
+const connectedSelector = (state: State) => state.connected
 
 const EggsCard: React.FC = () => {
   const accounts = useStore(accountsSelector)
   const selectedEgg = useStore(selectedEggSelector)
   const setDialogVisible = useStore(setDialogVisibleSelector)
+  const connected = useStore(connectedSelector)
 
   const cumsum = (): { x: number[]; y: number[] } => {
     /**
@@ -26,6 +28,9 @@ const EggsCard: React.FC = () => {
      */
     const res = accounts.reduce((acc: any, account: Account) => {
       const k = account.account.rentEpoch.toString()
+      if (!acc[k]) {
+        acc[k] = 0
+      }
       acc[k] += account.account.data.grail + account.account.data.yolk
       return acc
     }, getXLabels())
@@ -106,7 +111,7 @@ const EggsCard: React.FC = () => {
           <Button
             className={classes.redeemButton}
             fullWidth
-            disabled={!selectedEgg}
+            disabled={!selectedEgg || !connected}
             onClick={handleRedeemClick}
             variant="contained"
             color="primary"

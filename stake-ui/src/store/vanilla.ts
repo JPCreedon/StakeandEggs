@@ -58,7 +58,7 @@ export const store = createFunc<State>((set) => ({
     set((state) => ({ ...state, accounts })),
   wallet: new Wallet('https://www.sollet.io'),
   setWallet: (wallet: any) => set((state) => ({ ...state, wallet })),
-  connected: true, //false,
+  connected: false,
   setConnected: (connected: boolean) =>
     set((state) => ({ ...state, connected })),
   client: client,

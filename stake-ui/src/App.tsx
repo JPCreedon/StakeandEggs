@@ -1,4 +1,4 @@
-// cspell: ignore lamports pubkey blockhash txid
+// cspell: ignore lamports pubkey blockhash txid DEVNET
 import React, { useEffect, useCallback } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
@@ -46,7 +46,8 @@ function App() {
       method: 'getTokenAccountsByOwner',
       params: [
         // TODO: change to user defined account, perhaps the wallet
-        '2yyMk39x51tnNdjkRpDurjQvgAP7xK99nhACiJGpQ7BJ',
+        // '2yyMk39x51tnNdjkRpDurjQvgAP7xK99nhACiJGpQ7BJ', // LOCAL
+        'HGEyziUSPNXaHJADqVcTcJhwMTxLvwnJ8Qs2yXvs2C4h', // DEVNET
         // wallet.publicKey.toBase58(),
         { programId: TOKEN_PROGRAM_ID.toBase58() },
         { encoding: 'jsonParsed' }

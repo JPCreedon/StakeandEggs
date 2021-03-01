@@ -52,9 +52,7 @@ const Navbar: React.FC = () => {
             </div>
           </div>
           <Button onClick={handelConnect} color="inherit">
-            {/* {connected ? wallet.publicKey.toBase58() : 'Connect Wallet'} */}
-            {connected ? 'CHANGE BACK TO WALLET' : 'Connect Wallet'}{' '}
-            {/* TODO: REMOVE */}
+            {connected? wallet.publicKey.toBase58() : 'Connect Wallet'}
           </Button>
         </Toolbar>
       </AppBar>
