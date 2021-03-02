@@ -1,2 +1,2 @@
 # StakeandEggs
-Pooled Staking and Staking as a Service
+Tokenized Pooled Staking and Staking Nodes.
